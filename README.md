@@ -74,4 +74,6 @@ Ensure you have pip installed and run the following in ternminal:
 
 `$ pip3 install keras`
 
+`$ pip3 install tensorflow`
+
 Start by running the file `runs.py`
