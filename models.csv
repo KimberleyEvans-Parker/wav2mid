@@ -1,2 +1,2 @@
-model_name,spec_type,init_lr,lr_decay,bin_multiple,residual
-new,cqt,1e-1,half,4,True
+model_name,spec_type,init_lr,lr_decay,bin_multiple,residual,data_dir
+new,cqt,1e-1,half,4,True,./training_data/
