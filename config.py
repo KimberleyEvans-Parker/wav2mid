@@ -13,11 +13,12 @@ def load_config(json_fn):
         config = json.load(infile)
     return config
 
+
 def create_config(args):
-    path = os.path.join('models',args['model_name'])
+    path = os.path.join('models', args['model_name'])
     if not os.path.exists(path):
-        os.mkdir(path)
-    with open(os.path.join(path,'config.json'), 'w') as outfile:
+        os.makedirs(path)
+    with open(os.path.join(path, 'config.json'), 'w') as outfile:
         json.dump(args, outfile)
 
 
@@ -26,10 +27,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Create a config JSON')
 
-    #possible types/values
-    #model_name,spec_type,init_lr,lr_decay,bin_multiple,residual,filter_shape
-    #baseline,cqt,1e-2,linear,36,False,some
-    #new,logstft,1e-1,geo,96,True,full
+    # possible types/values
+    # model_name,spec_type,init_lr,lr_decay,bin_multiple,residual,filter_shape
+    # baseline,cqt,1e-2,linear,36,False,some
+    # new,logstft,1e-1,geo,96,True,full
 
     parser.add_argument('model_name',
                         help='model name. will create a directory for model where config,data,etc will go')
