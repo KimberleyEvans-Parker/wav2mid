@@ -8,6 +8,7 @@ import numpy as np
 import sys
 import argparse
 
+
 def pretty_midi_to_one_hot(pm, fs=100):
     """Compute a one hot matrix of a pretty midi object
 
@@ -35,20 +36,21 @@ def pretty_midi_to_one_hot(pm, fs=100):
         for note in instrument.notes:
             # note on
             one_hot[note.pitch, int(note.start*fs)] = 1
-            print('note on',note.pitch, int(note.start*fs))
+            print('note on', note.pitch, int(note.start*fs))
             # note off
             one_hot[note.pitch, int(note.end*fs)] = 0
-            print('note off',note.pitch, int(note.end*fs))
+            print('note off', note.pitch, int(note.end*fs))
         one_hots.append(one_hot)
 
     one_hot = np.zeros((128, np.max([o.shape[1] for o in one_hots])))
     for o in one_hots:
         one_hot[:, :o.shape[1]] += o
 
-    one_hot = np.clip(one_hot,-1,1)
+    one_hot = np.clip(one_hot, -1, 1)
     return one_hot
 
-def one_hot_to_pretty_midi(one_hot, fs=100, program=1,bpm=120):
+
+def one_hot_to_pretty_midi(one_hot, fs=100, program=1, bpm=120):
     '''Convert a Piano Roll array into a PrettyMidi object
      with a single instrument.
 
@@ -89,7 +91,7 @@ def one_hot_to_pretty_midi(one_hot, fs=100, program=1,bpm=120):
 
     bps = bpm / 60
     beat_interval = fs / bps
-    strong_beats = beat_interval * 2 #(for 4/4 timing)
+    strong_beats = beat_interval * 2  # (for 4/4 timing)
 
     last_beat_time = 0
 
@@ -100,7 +102,6 @@ def one_hot_to_pretty_midi(one_hot, fs=100, program=1,bpm=120):
             for note in current_notes:
 
         time = time / fs
-
 
         if change == 1:
             # note on
@@ -119,16 +120,17 @@ def one_hot_to_pretty_midi(one_hot, fs=100, program=1,bpm=120):
                 note_on_time[note] = time
                 current_notes[note] = 1'''
         elif change == 0:
-            #note off
+            # note off
             pm_note = pretty_midi.Note(
-                    velocity=100, #don't care fer now
-                    pitch=note,
-                    start=note_on_time[note],
-                    end=time)
+                velocity=100,  # don't care fer now
+                pitch=note,
+                start=note_on_time[note],
+                end=time)
             current_notes[note] = 0
             instrument.notes.append(pm_note)
     pm.instruments.append(instrument)
     return pm
+
 
 if __name__ == '__main__':
     # Set up command-line argument parsing
@@ -147,9 +149,9 @@ if __name__ == '__main__':
 
     parameters = vars(parser.parse_args(sys.argv[1:]))
     pm = pretty_midi.PrettyMIDI(parameters['input_midi'])
-    #print(pm.instruments[0].notes)
+    # print(pm.instruments[0].notes)
     oh = pretty_midi_to_one_hot(pm, fs=parameters['fs'])
     new_pm = one_hot_to_pretty_midi(oh, fs=parameters['fs'],
-                                       program=parameters['program'])
-    #print(new_pm.instruments[0].notes)
+                                    program=parameters['program'])
+    # print(new_pm.instruments[0].notes)
     new_pm.write(parameters['output_midi'])
