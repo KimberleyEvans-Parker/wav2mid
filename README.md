@@ -55,8 +55,8 @@ The design for the system is as follows:
 - [Large MIDI collection](https://www.reddit.com/r/WeAreTheMusicMakers/comments/3ajwe4/the_largest_midi_collection_on_the_internet/)
 
 ### Run Instructions
-
-Ensure you have pip installed and run the following in ternminal:
+Both contributors use Python 3.8.2 (64 bit) and would recommend sticking to this to avoid module issues
+Ensure you have pip 20.2.2 installed and run the following in terminal:
 
 `$ pip3 install mido`
 
