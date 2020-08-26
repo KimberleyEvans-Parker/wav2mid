@@ -55,6 +55,7 @@ The design for the system is as follows:
 - [Large MIDI collection](https://www.reddit.com/r/WeAreTheMusicMakers/comments/3ajwe4/the_largest_midi_collection_on_the_internet/)
 
 ### Run Instructions
+
 Both contributors use Python 3.8.2 (64 bit) and would recommend sticking to this to avoid module issues
 Ensure you have pip 20.2.2 installed and run the following in terminal:
 
@@ -75,5 +76,13 @@ Ensure you have pip 20.2.2 installed and run the following in terminal:
 `$ pip3 install keras`
 
 `$ pip3 install tensorflow`
+
+`$ pip3 install pydotplus`
+
+`$ pip3 install graphviz`
+
+You may have to install graphiv from here: https://graphviz.org/download/
+
+Add the data you want to train to a directory called `training data`. Add at least 5 peices of data each with both a midi and wav version to a sub directory in this folder.
 
 Start by running the file `runs.py`
