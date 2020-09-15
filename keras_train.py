@@ -239,6 +239,17 @@ def train(args):
     history = model.fit_generator(next(trainGen), trainGen.steps(), epochs=epochs,
                                   verbose=1, validation_data=next(valGen), validation_steps=valGen.steps(), callbacks=callbacks)
 
+    directory_name = 'baseline'
+    # try and catch block use to handle the exceptions.
+    try:
+        # Create  Directory  MyDirectory
+        os.mkdir(directory_name)
+        # print if directory created successfully...
+        print("Directory ", directory_name,  " created")
+    except FileExistsError:
+        # print if directory already exists...
+        print("Directory ", directory_name,  " already exists")
+
     # list all data in history
     print((list(history.history.keys())))
     # summarize history for accuracy
@@ -248,7 +259,7 @@ def train(args):
     plt.ylabel('accuracy')
     plt.xlabel('epoch')
     plt.legend(['train', 'val'], loc='upper left')
-    plt.savefig('baseline/acc.png')'''
+    plt.savefig(directory_name + '/acc.png')'''
 
     # summarize history for loss
     plt.plot(history.history['loss'])
@@ -257,7 +268,7 @@ def train(args):
     plt.ylabel('loss')
     plt.xlabel('epoch')
     plt.legend(['train', 'val'], loc='upper left')
-    plt.savefig('baseline/loss.png')
+    plt.savefig(directory_name + '/loss.png')
 
     # test
     testGen = DataGen(os.path.join(path, 'data', 'test'), batch_size, args)
