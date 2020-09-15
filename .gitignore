@@ -87,3 +87,10 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# created on run
+models/
+baseline/
+
+# training data
+training_data/
