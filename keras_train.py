@@ -200,7 +200,7 @@ def train(args):
 
     # train params
     batch_size = 256
-    epochs = 1000
+    epochs = 100
 
     trainGen = DataGen(os.path.join(path, 'data', 'train'), batch_size, args)
     valGen = DataGen(os.path.join(path, 'data', 'val'), batch_size, args)
@@ -226,7 +226,7 @@ def train(args):
     checkpoint = ModelCheckpoint(
         model_ckpt, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
     early_stop = EarlyStopping(
-        patience=5, monitor='val_loss', verbose=1, mode='min')
+        patience=20, monitor='val_loss', verbose=1, mode='min')
     #tensorboard = TensorBoard(log_dir='./logs/baseline/', histogram_freq=250, batch_size=batch_size)
     if args['lr_decay'] == 'linear':
         decay = linear_decay(init_lr, epochs)
@@ -235,7 +235,7 @@ def train(args):
     csv_logger = CSVLogger(os.path.join(path, 'training.log'))
     #t = Threshold(valData)
     callbacks = [checkpoint, early_stop, decay, csv_logger]
-
+    #callbacks = [checkpoint, decay, csv_logger]
     history = model.fit_generator(next(trainGen), trainGen.steps(), epochs=epochs,
                                   verbose=1, validation_data=next(valGen), validation_steps=valGen.steps(), callbacks=callbacks)
 

@@ -1,2 +1,9 @@
 model_name,spec_type,init_lr,lr_decay,bin_multiple,residual,data_dir
-new,cqt,1e-1,half,4,True,./training_data/
+new,cqt,1.00E-01,half,4,TRUE,./training_data/
+newlr,cqt,1.00E-03,half,4,TRUE,./training_data/
+short_new,stft,1.00E-01,half,4,TRUE,./training_data/
+short_newlr,stft,1.00E-03,half,4,TRUE,./training_data/
+new_no_res,cqt,1.00E-01,half,4,FALSE,./training_data/
+newlr_nores,cqt,1.00E-03,half,4,FALSE,./training_data/
+short_new_nores,stft,1.00E-01,half,4,FALSE,./training_data/
+short_newlr_nores,stft,1.00E-03,half,4,FALSE,./training_data/
